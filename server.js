@@ -10,7 +10,7 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from 'path';
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 // Connect DB
@@ -47,16 +47,25 @@ app.get("/", (req, res) => {
 });
 
 // Serve frontend in production
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
+// if (process.env.NODE_ENV === 'production') {
+//   const frontendPath = path.join(__dirname, '../frontend/dist');
+//   app.use(express.static(frontendPath));
+
+//   app.get('*', (req, res) =>
+//     res.sendFile(path.join(frontendPath, 'index.html'))
+//   );
+// }
+// Add this before your API routes
 if (process.env.NODE_ENV === 'production') {
-  const frontendPath = path.join(__dirname, '../frontend/dist');
-  app.use(express.static(frontendPath));
-
-  app.get('*', (req, res) =>
-    res.sendFile(path.join(frontendPath, 'index.html'))
-  );
+  app.use(express.static(path.join(__dirname, 'public')))
+  
+  // Handle SPA routing
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  })
 }
 
 // Error handling middleware

@@ -22,18 +22,31 @@ const createOrder = asyncHandler(async (req, res) => {
     throw new Error('No order items');
   }
 
+  // const validatedItems = orderItems.map((item) => {
+  //   if (!mongoose.Types.ObjectId.isValid(item.product)) {
+  //     throw new Error(`Invalid product ID: ${item.product}`);
+  //   }
+  //   return {
+  //     product: item.product,
+  //     name: item.name,
+  //     image: item.image,
+  //     price: item.price,
+  //     quantity: item.quantity,
+  //   };
+  // });
   const validatedItems = orderItems.map((item) => {
-    if (!mongoose.Types.ObjectId.isValid(item.product)) {
-      throw new Error(`Invalid product ID: ${item.product}`);
-    }
-    return {
-      product: item.product,
-      name: item.name,
-      image: item.image,
-      price: item.price,
-      quantity: item.quantity,
-    };
-  });
+  if (!mongoose.Types.ObjectId.isValid(item.product)) {
+    throw new Error(`Invalid product ID: ${item.product}`);
+  }
+  return {
+    product: item.product,
+    name: item.name,
+    image: Array.isArray(item.images) && item.images.length > 0 ? item.images[0] : item.image || '', 
+    price: item.price,
+    quantity: item.quantity,
+  };
+});
+
 
   const order = new Order({
     user: req.user._id,

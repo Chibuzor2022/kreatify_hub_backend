@@ -43,14 +43,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Add this before your API routes
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/build')));
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-  );
-}
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '/frontend/build')));
+//   app.get('*', (req, res) =>
+//     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+//   );
+// }
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -65,20 +65,6 @@ app.use("/api/upload", uploadRoutes);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
-
-// Serve frontend in production
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// if (process.env.NODE_ENV === 'production') {
-//   const frontendPath = path.join(__dirname, '../frontend/dist');
-//   app.use(express.static(frontendPath));
-
-//   app.get('*', (req, res) =>
-//     res.sendFile(path.join(frontendPath, 'index.html'))
-//   );
-// }
-
 
 
 // Error handling middleware

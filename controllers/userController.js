@@ -30,7 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
 			email: user.email,
 			phone: user.phone,
 			isAdmin: user.isAdmin,
-			token,
+			// token,
 		});
 	} else {
 		res.status(400);
@@ -69,7 +69,7 @@ const loginUser = async (req, res) => {
 		name: user.name,
 		email: user.email,
 		isAdmin: user.isAdmin,
-		token,
+		// token,
 	});
 };
 
@@ -80,7 +80,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     expires: new Date(0),
     path: '/'
   });
@@ -127,7 +127,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 			email: updatedUser.email,
 			phone: updatedUser.phone,
 			isAdmin: updatedUser.isAdmin,
-			token,
+			// token,
 		});
 	} else {
 		res.status(404);

@@ -141,15 +141,33 @@ const getAllOrders = asyncHandler(async (req, res) => {
 // @desc    Get single order
 // @route   GET /api/orders/:id
 // @access  Private
+// const getOrderById = asyncHandler(async (req, res) => {
+//   const order = await Order.findById(req.params.id).populate('user', 'name email');
+//   if (order) {
+//     res.json(order);
+//   } else {
+//     res.status(404);
+//     throw new Error('Order not found');
+//   }
+// });
+
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate('user', 'name email');
-  if (order) {
-    res.json(order);
-  } else {
+
+  if (!order) {
     res.status(404);
     throw new Error('Order not found');
   }
+
+  // Check if the logged-in user owns the order or is an admin
+  if (order.user._id.toString() !== req.user._id.toString() && !req.user.isAdmin) {
+    res.status(401);
+    throw new Error('Not authorized to view this order');
+  }
+
+  res.json(order);
 });
+
 
 // @desc    Delete an order
 // @route   DELETE /api/orders/:id  

@@ -1,0 +1,66 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+# (Optional) if you prefer to commit package-lock.json, remove the line above
+
+# Environment files
+.env
+.env.*    # for environment variants like .env.local, .env.production
+
+# Logs
+logs/
+*.log
+debug.log
+error.log
+*.pid
+*.seed
+*.pid.lock
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Build output
+dist/
+build/
+coverage/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# TypeScript
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Optional: Ignore uploaded files if you store them locally
+uploads/
+public/uploads/
+
+# Replit and other hosting configs (optional)
+.replit
+*.replit
+.vercel
+.netlify
+
+# Ignore local database and cache
+*.db
+.cache/
+

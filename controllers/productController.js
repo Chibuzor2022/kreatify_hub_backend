@@ -42,6 +42,8 @@ const searchProducts = asyncHandler(async (req, res) => {
           { brand: { $regex: req.query.keyword, $options: "i" } },
         ],
       }
+
+      
     : {};
 
   const products = await Product.find({ ...keyword });
